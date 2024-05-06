@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "column-tax-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/column-tax/column-tax-ios-sdk",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1b07abb41ca3a7bd7eea0de4f38ab3d03d3762a2"
+      }
+    }
+  ],
+  "version" : 2
+}

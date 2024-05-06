@@ -72,7 +72,7 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
 }
 
-public struct ColumnModuleView: UIViewRepresentable {
+public struct ColumnTaxView: UIViewRepresentable {
     let urlRequest: URLRequest
     @Binding var isPresented: Bool
     var onClose: () -> Void // Closure to handle close event
@@ -91,7 +91,7 @@ public struct ColumnModuleView: UIViewRepresentable {
         columnWebView.navigationDelegate = self.navigationDelegate;
         return columnWebView
     }
-    
+
     public init(urlRequest: URLRequest, isPresented: Binding<Bool>, onClose: @escaping () -> Void) {
         self.urlRequest = urlRequest
         self._isPresented = isPresented
