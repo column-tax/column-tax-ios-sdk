@@ -36,7 +36,7 @@ struct ContentView: View {
                 }.sheet(isPresented: $activeWebView, content: {
                     // open the Column Tax SDK
                     ColumnTaxView(
-                        urlRequest: URLRequest(url: URL(string: getUrlText())!),
+                        userUrlRequest: URLRequest(url: URL(string: getUrlText())!),
                         isPresented: self.$activeWebView,
                         onClose: self.handleClose
                     ).edgesIgnoringSafeArea(.all)

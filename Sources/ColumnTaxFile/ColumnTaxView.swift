@@ -73,7 +73,7 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
 }
 
 public struct ColumnTaxView: UIViewRepresentable {
-    let urlRequest: URLRequest
+    let userUrlRequest: URLRequest
     @Binding var isPresented: Bool
     var onClose: () -> Void // Closure to handle close event
 
@@ -81,7 +81,7 @@ public struct ColumnTaxView: UIViewRepresentable {
     var scriptMessageHandler: ScriptMessageHandler // Handle user events
 
     public func updateUIView(_ uiView: ColumnWebView, context: Context) {
-        uiView.load(urlRequest)
+        uiView.load(userUrlRequest)
     }
 
     public func makeUIView(context: Context) -> ColumnWebView  {
@@ -92,8 +92,8 @@ public struct ColumnTaxView: UIViewRepresentable {
         return columnWebView
     }
 
-    public init(urlRequest: URLRequest, isPresented: Binding<Bool>, onClose: @escaping () -> Void) {
-        self.urlRequest = urlRequest
+    public init(userUrlRequest: URLRequest, isPresented: Binding<Bool>, onClose: @escaping () -> Void) {
+        self.userUrlRequest = userUrlRequest
         self._isPresented = isPresented
         self.onClose = onClose
         self.scriptMessageHandler = ScriptMessageHandler(onClose: onClose)
