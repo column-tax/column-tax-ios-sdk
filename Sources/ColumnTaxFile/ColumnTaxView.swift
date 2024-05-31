@@ -3,7 +3,6 @@ import Foundation
 import WebKit
 import UIKit
 
-
 public class ColumnWebView: WKWebView {
     public override var safeAreaInsets: UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -16,7 +15,7 @@ class NavigationDelegate: NSObject, WKNavigationDelegate {
             "localhost",
             "columnapi.com",
             "env.bz"
-        ];
+        ]
 
         // Check if the navigation is in a subframe (like an iframe)
         if navigationAction.targetFrame?.isMainFrame == false {
@@ -59,51 +58,54 @@ class NavigationDelegate: NSObject, WKNavigationDelegate {
 }
 
 class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
-    var onClose: () -> Void
+    var handleClose: () -> Void
 
-    init(onClose: @escaping () -> Void) {
-        self.onClose = onClose
+    init(handleClose: @escaping () -> Void) {
+        self.handleClose = handleClose
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "column-on-close" {
-            onClose()
+            handleClose()
         }
     }
 }
 
 public struct ColumnTaxView: UIViewRepresentable {
-    let userUrlRequest: URLRequest
+    let userUrl: URL
     @Binding var isPresented: Bool
-    var onClose: () -> Void // Closure to handle close event
+    var handleClose: () -> Void // Closure to handle close event
 
     var navigationDelegate: WKNavigationDelegate = NavigationDelegate()
     var scriptMessageHandler: ScriptMessageHandler // Handle user events
 
     public func updateUIView(_ uiView: ColumnWebView, context: Context) {
-        uiView.load(userUrlRequest)
+        let request = URLRequest(url: userUrl)
+        uiView.load(request)
     }
 
     public func makeUIView(context: Context) -> ColumnWebView  {
         let columnWebView = ColumnWebView()
-        // support onClose event
+        // support handleClose event
         columnWebView.configuration.userContentController.add(self.scriptMessageHandler, name: "column-on-close")
         columnWebView.navigationDelegate = self.navigationDelegate;
+        let request = URLRequest(url: userUrl)
+        columnWebView.load(request)
         return columnWebView
     }
 
-    public init(userUrlRequest: URLRequest, isPresented: Binding<Bool>, onClose: @escaping () -> Void) {
-        self.userUrlRequest = userUrlRequest
+    public init(userUrl: URL, isPresented: Binding<Bool>, handleClose: @escaping () -> Void) {
+        self.userUrl = userUrl
         self._isPresented = isPresented
-        self.onClose = onClose
-        self.scriptMessageHandler = ScriptMessageHandler(onClose: onClose)
+        self.handleClose = handleClose
+        self.scriptMessageHandler = ScriptMessageHandler(handleClose: handleClose)
     }
 
     // Implement the WebView message handling to listen for the "column-on-close" event
-    // Call the onClose closure when "column-on-close" event is received
+    // Call the handleClose closure when "column-on-close" event is received
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "column-on-close" {
-            onClose()
+            handleClose()
         }
     }
 }
