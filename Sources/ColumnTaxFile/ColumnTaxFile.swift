@@ -71,7 +71,7 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
 }
 
-public struct ColumnTaxView: UIViewRepresentable {
+public struct ColumnTaxFile: UIViewRepresentable {
     let userUrl: URL
     @Binding var isPresented: Bool
     var handleClose: () -> Void // Closure to handle close event

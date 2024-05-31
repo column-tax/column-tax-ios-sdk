@@ -35,7 +35,7 @@ struct ContentView: View {
                         .border(Color(.white), width: 5)
                 }.sheet(isPresented: $activeWebView, content: {
                     // open the Column Tax SDK
-                    ColumnTaxView(
+                    ColumnTaxFile(
                         userUrl: URL(string: getUrlText())!,
                         isPresented: self.$activeWebView,
                         handleClose: self.handleClose
