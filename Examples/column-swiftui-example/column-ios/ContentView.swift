@@ -34,11 +34,11 @@ struct ContentView: View {
                         .padding()
                         .border(Color(.white), width: 5)
                 }.sheet(isPresented: $activeWebView, content: {
-                    // open the Column Tax SDK
-                    ColumnTaxView(
-                        userUrlRequest: URLRequest(url: URL(string: getUrlText())!),
+                    // open the Column Tax SDK!
+                    ColumnTaxFile(
+                        userUrl: URL(string: getUrlText())!,
                         isPresented: self.$activeWebView,
-                        onClose: self.handleClose
+                        handleClose: self.handleClose
                     ).edgesIgnoringSafeArea(.all)
                 })
             }
