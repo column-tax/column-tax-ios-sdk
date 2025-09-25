@@ -41,7 +41,7 @@ First, obtain a user URL from the [Column Tax API](https://docs.columntax.com/re
 
 ```swift
 // Call your backend to get the user_url from Column Tax API
-let userUrl = "https://columnapi.com/tax-filing/user/abc123..."
+let userUrl = "https://app.columnapi.com/tax-filing?params=eyJ0b2tlbiI6ImV5Sm..."
 ```
 
 ### 3. Present the Tax Filing Interface
@@ -97,7 +97,7 @@ ColumnTaxFile(
 
 ## Error Handling
 
-The SDK passes URLs directly to the WebView. Ensure your URLs are valid before passing them to the SDK:
+The SDK passes URLs directly to the WebView. We strongly recommend the URL is valid before passing them to the SDK:
 
 ```swift
 guard let url = URL(string: userUrlString) else {
