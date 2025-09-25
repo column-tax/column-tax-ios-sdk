@@ -97,7 +97,7 @@ ColumnTaxFile(
 
 ## Error Handling
 
-The SDK passes URLs directly to the WebView. We strongly recommend the URL is valid before passing them to the SDK:
+The SDK passes URLs directly to the WebView. We strongly recommend checking the URL is valid before passing them to the SDK:
 
 ```swift
 guard let url = URL(string: userUrlString) else {
